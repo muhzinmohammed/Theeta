@@ -13,6 +13,16 @@ const data = [
   { key: 'The Olive Table', img: image1 },
   { key: 'Spice Theory', img: image1 },
   { key: 'Velvet Curry', img: image1 },
+  { key: 'Zesty Roots', img: image1 },
+  { key: 'Namma Feast', img: image2 },
+  { key: 'The Curry Leaf', img: image3 },
+  { key: 'Chili & Chaat', img: image1 },
+  { key: 'The Golden Grill', img: image2 },
+  { key: 'Biryani Junction', img: image1 },
+  { key: 'Tangy Tales', img: image3 },
+  { key: 'Savory Street', img: image2 },
+  { key: 'Tikka Town', img: image1 },
+  { key: 'Coastal Cravings', img: image3 },
 ];
 
 export default function Index() {

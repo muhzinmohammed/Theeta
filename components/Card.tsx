@@ -12,13 +12,13 @@ export default function Card({name,imgSource}:Props) {
     <View style={styles.container}>
         <View style={styles.image_conatiner}>
             <ImageBackground source={imgSource} imageStyle={styles.image}>
-                <LinearGradient colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0)']}
+                <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 0, y: 1 }}
                     style={styles.overlay}>
                     <Text style={styles.text}>{name}</Text>
                 </LinearGradient>
-                <LinearGradient colors={['rgba(0,0,0,1)', 'rgba(0,0,0,0)']}
+                <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                     start={{ x: 0, y: 1 }}
                     end={{ x: 0, y: 0 }}
                     style={styles.bottomOverlay}>
@@ -28,15 +28,15 @@ export default function Card({name,imgSource}:Props) {
         </View>
         <View style={styles.details}>
             <View style={styles.info}>
-                <Text style={styles.text}>5.0</Text>
-                <Ionicons name='star-outline' color={'#EEA734'} size={24}/>
+                <Text style={styles.text1}>5.0</Text>
+                <Ionicons name='star-outline' color={'#EEA734'} size={22}/>
             </View>
             <View style={styles.info}>
-                <Text style={styles.text}>30 mins</Text>
+                <Text style={styles.text1}>30 mins</Text>
                 <Ionicons name='time-outline' color={'#EEA734'} size={24}/>
             </View>
             <View style={styles.info}>
-                <Text style={styles.text}>200</Text>
+                <Text style={styles.text1}>200</Text>
                 <Ionicons name='pricetags-outline' color={'#EEA734'} size={24}/>
             </View>
         </View>
@@ -87,15 +87,19 @@ const styles = StyleSheet.create({
         textAlign: 'right',
     },
     details: {
-        color: '#fff',
         flexDirection:'row',
         justifyContent: 'flex-end',
-        fontSize: 22,
         padding:8,
         gap: 20,
     },
     info: {
         flexDirection: 'row',
-        color:'white'
+        color:'white',
+        gap:3
+    },
+    text1: {
+        color: 'rgb(231, 226, 226)',
+        fontSize: 18,
+        fontWeight: 'bold',
     }
 })
