@@ -1,5 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Link } from 'expo-router';
 import React from 'react';
 import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 
@@ -10,36 +11,38 @@ type Props = {
 export default function Card({name,imgSource}:Props) {
   return (
     <View style={styles.container}>
-        <View style={styles.image_conatiner}>
-            <ImageBackground source={imgSource} imageStyle={styles.image}>
-                <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
-                    start={{ x: 0, y: 0 }}
-                    end={{ x: 0, y: 1 }}
-                    style={styles.overlay}>
-                    <Text style={styles.text}>{name}</Text>
-                </LinearGradient>
-                <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 0, y: 0 }}
-                    style={styles.bottomOverlay}>
-                    <Text style={styles.cusine}>Indian-Arabic-Chinese</Text>
-                </LinearGradient>
-            </ImageBackground>
-        </View>
-        <View style={styles.details}>
-            <View style={styles.info}>
-                <Text style={styles.text1}>5.0</Text>
-                <Ionicons name='star-outline' color={'#EEA734'} size={22}/>
+        <Link href="/">
+            <View style={styles.image_conatiner}>
+                <ImageBackground source={imgSource} imageStyle={styles.image}>
+                    <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
+                        start={{ x: 0, y: 0 }}
+                        end={{ x: 0, y: 1 }}
+                        style={styles.overlay}>
+                        <Text style={styles.text}>{name}</Text>
+                    </LinearGradient>
+                    <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 0, y: 0 }}
+                        style={styles.bottomOverlay}>
+                        <Text style={styles.cusine}>Indian-Arabic-Chinese</Text>
+                    </LinearGradient>
+                </ImageBackground>
             </View>
-            <View style={styles.info}>
-                <Text style={styles.text1}>30 mins</Text>
-                <Ionicons name='time-outline' color={'#EEA734'} size={24}/>
+            <View style={styles.details}>
+                <View style={styles.info}>
+                    <Text style={styles.text1}>5.0</Text>
+                    <Ionicons name='star-outline' color={'#EEA734'} size={22}/>
+                </View>
+                <View style={styles.info}>
+                    <Text style={styles.text1}>30 mins</Text>
+                    <Ionicons name='time-outline' color={'#EEA734'} size={24}/>
+                </View>
+                <View style={styles.info}>
+                    <Text style={styles.text1}>200</Text>
+                    <Ionicons name='pricetags-outline' color={'#EEA734'} size={24}/>
+                </View>
             </View>
-            <View style={styles.info}>
-                <Text style={styles.text1}>200</Text>
-                <Ionicons name='pricetags-outline' color={'#EEA734'} size={24}/>
-            </View>
-        </View>
+        </Link>
     </View>
   )
 }

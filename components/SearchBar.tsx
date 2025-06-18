@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
         gap:5
     },input: {
         color:"#fff",
-        fontSize:16
+        width:'100%',
+        height:'100%',
+        fontSize:16,
     }
 })

@@ -22,7 +22,6 @@ export default function Catagory({name,imgSource}:Props) {
 const styles = StyleSheet.create({
     container: {
         width:'50%',
-        height: 250,
         padding:15,
     },
     image_conatiner: {
@@ -40,11 +39,10 @@ const styles = StyleSheet.create({
     },
     overlay: {
         ...StyleSheet.absoluteFillObject,
-        padding: 12,
         borderRadius: 10,
         backgroundColor:'rgba(0,0,0,0.3)',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
     },
     text: {
         position:'absolute',

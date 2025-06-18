@@ -42,7 +42,6 @@ export default function explore() {
         renderItem={({ item }) => (
           <Catagory name={item.key} imgSource={item.img} />
         )}
-        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
       />
     </View>
@@ -53,9 +52,6 @@ const styles = StyleSheet.create({
   container: {
     flex:1,
     backgroundColor: "#121212",
-  },
-  content: {
-    paddingBottom: 20,
   },
   header: {
     marginTop:56,
