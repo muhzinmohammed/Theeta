@@ -17,6 +17,9 @@ export default function TabLayout(){
             <Tabs.Screen name="explore" options={{title: "Explore",tabBarIcon: ({color,focused}) => (
                 <Ionicons name={focused? 'search':'search-outline'} color={color} size={24} />
             )}} />
+            <Tabs.Screen name="review" options={{title: "Add",tabBarIcon: ({color,focused}) => (
+                <Ionicons name={focused? 'add-circle':'add-circle-outline'} color={color} size={24} />
+            )}} />
             <Tabs.Screen name="map" options={{title: "Map",tabBarIcon: ({color,focused}) => (
                 <Ionicons name={focused? 'location':'location-outline'} color={color} size={24} />
             )}} />

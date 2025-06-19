@@ -41,15 +41,16 @@ export default function Index() {
             <Text style={styles.logo}>Theeta</Text>
             <Text style={styles.title}>Welcome, Muhzin</Text>
             <View style={styles.ex_container}>
-              <Text style={styles.subtitle}>Top Picks For You</Text>
+              <Text style={styles.subtitle}>New In Town</Text>
               <ScrollView horizontal >
-                <Top name={'Tikka Town'} imgSource={image3} />
-                <Top name={'Tikka Town'} imgSource={image3} />
-                <Top name={'Tikka Town'} imgSource={image3} />
-                <Top name={'Tikka Town'} imgSource={image3} />
-                <Top name={'Tikka Town'} imgSource={image3} />
-                <Top name={'Tikka Town'} imgSource={image3} />
+                <Top food={'Kunafa'}  name={"fadwa sweets"} imgSource={image3} />
+                <Top food={'Tikka Town'} name={"fadwa sweets"} imgSource={image3} />
+                <Top food={'Tikka Town'} name={"fadwa sweets"} imgSource={image3} />
+                <Top food={'Tikka Town'} name={"fadwa sweets"} imgSource={image3} />
+                <Top food={'Tikka Town'} name={"fadwa sweets"} imgSource={image3} />
+                <Top food={'Tikka Town'} name={"fadwa sweets"} imgSource={image3} />
               </ScrollView>
+              <Text style={styles.subtitle}>Top Picks For You</Text>
             </View>
           </View>
         }
@@ -62,42 +63,41 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#121212",
+    flex:1,
+    backgroundColor:'rgb(22, 13, 0)',
   },
   content: {
     paddingBottom: 20,
+
   },
   header: {
     paddingTop: 60,
-    height:350,
     backgroundColor:'rgb(41, 26, 4)',
-    borderRadius:20
+    borderRadius:20,
   },
   logo: {
-    paddingHorizontal: 20,
-    color: '#EEA734',
-    fontSize: 32,
+    color: 'rgb(190, 109, 2)',
+    fontSize: 36,
     marginBottom:5,
+    paddingHorizontal:20,
     fontWeight: 'bold',
   },
   title: {
+    margin:2,
     paddingHorizontal: 20,
     color: '#EEA734',
     fontSize: 28,
     fontWeight: 'bold',
   },
   subtitle: {
-    color: '#EEA734',
+    color: 'rgb(219, 157, 98)',
     fontSize: 20,
   },
   ex_container: {
     bottom:0,
     padding:20,
     paddingRight:10,
-    position:'absolute',
     marginTop: 5,
-    height:200,
     backgroundColor:'rgb(22, 13, 0)',
     borderTopLeftRadius:0,
     borderRadius:20

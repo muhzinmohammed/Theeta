@@ -4,11 +4,10 @@ import React from 'react';
 import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
-    food: String;
     name: String;
     imgSource: ImageSourcePropType;
 }
-export default function Top({food,name,imgSource}:Props) {
+export default function MapCard({name,imgSource}:Props) {
   return (
     <View style={styles.container}>
         <Link href="/">
@@ -18,13 +17,13 @@ export default function Top({food,name,imgSource}:Props) {
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
                         style={styles.overlay}>
-                        <Text style={styles.text}>{food}</Text>
+                        <Text style={styles.text}>{name}</Text>
                     </LinearGradient>
                     <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                         start={{ x: 0, y: 1 }}
                         end={{ x: 0, y: 0 }}
                         style={styles.bottomOverlay}>
-                        <Text style={styles.name}>{name}</Text>
+                        <Text style={styles.cusine}>Indian-Arabic-Chinese</Text>
                     </LinearGradient>
                 </ImageBackground>
             </View>
@@ -32,31 +31,31 @@ export default function Top({food,name,imgSource}:Props) {
     </View>
   )
 }
+
 const styles = StyleSheet.create({
     container: {
-        width:180,
-        height: 180,
-        padding:15,
+        padding:10,
     },
     image_conatiner: {
         width: '100%',
         height: 180,
+        borderRadius: 10,
     },
     image: {
         width: '100%',
-        height: '100%',
-        borderRadius: 20,
-        position:'relative',
+        height: 180,
+        borderRadius: 10,
+        position:'relative'
     },
     overlay: {
         position:'absolute',
         width:'100%',
         top:0,
         padding: 12,
-        borderRadius: 20,
+        borderRadius: 10,
     },
     text: {
-        color: 'rgb(209, 209, 209)',
+        color: 'rgb(231, 226, 226)',
         fontSize: 20,
         fontWeight: 'bold',
     },
@@ -66,15 +65,27 @@ const styles = StyleSheet.create({
         bottom:0,
         right:0,
         padding: 12,
-        borderRadius: 20
+        borderRadius: 10
+    },
+    cusine: {
+        color: '#fff',
+        fontSize: 16,
+        textAlign: 'right',
+    },
+    details: {
+        flexDirection:'row',
+        justifyContent: 'flex-end',
+        padding:8,
+        gap: 20,
+    },
+    info: {
+        flexDirection: 'row',
+        color:'white',
+        gap:3
     },
     text1: {
-        color: 'rgb(231, 20, 20)',
+        color: 'rgb(231, 226, 226)',
         fontSize: 18,
         fontWeight: 'bold',
-    },
-    name:{
-        fontSize:16,
-        color:'rgb(196, 163, 94)',
     }
 })
