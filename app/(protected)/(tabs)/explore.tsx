@@ -51,7 +51,7 @@ export default function explore() {
 const styles = StyleSheet.create({
   container: {
     flex:1,
-    backgroundColor: "#121212",
+    backgroundColor:'rgb(22, 13, 0)',
   },
   header: {
     marginTop:56,
