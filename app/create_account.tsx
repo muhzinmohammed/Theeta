@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import { useAuthStore } from '@/utils/authStore';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 

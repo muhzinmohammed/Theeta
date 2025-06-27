@@ -1,14 +1,18 @@
 import Button from '@/components/Button';
-import { AuthContext } from '@/utils/authContext';
-import React, { useContext } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { useAuthStore } from '@/utils/authStore';
+import React from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+
+
+const image2 = require('@/assets/images/food2.jpg');
 
 export default function profile() {
-  const authContext = useContext(AuthContext);
+  const {logOut} = useAuthStore();
   return (
     <View style={styles.conatiner}>
       <Text style={styles.subtitle}>profile</Text>
-      <Button name="LogOut" style={styles.button} onPress={authContext.logOut}/>
+      <Image source={image2} style={styles.image} />
+      <Button name="LogOut" style={styles.button} onPress={logOut}/>
     </View>
   )
 }
@@ -34,4 +38,9 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     marginTop:20
   },
+  image: {
+    height:200,
+    width:200,
+    borderRadius:'50%'
+  }
 })
