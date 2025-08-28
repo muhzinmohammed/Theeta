@@ -1,14 +1,33 @@
 import Button from '@/components/Button';
 import { useAuthStore } from '@/utils/authStore';
-import React, { useContext, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { supabase } from '@/utils/supabase';
+import React, { useState } from 'react';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 
-export default function login() {
+export default function signin() {
   const {logIn} = useAuthStore();
-  const [username,setUserName] = useState<string>("");
-  const [password,setPassword] = useState<string>("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
+
+  async function signUpWithEmail() {
+    setLoading(true)
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+    })
+    if(session){
+      logIn
+    }
+    if (error) Alert.alert(error.message)
+    if (!session) Alert.alert('Please check your inbox for email verification!')
+    setLoading(false)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -16,13 +35,13 @@ export default function login() {
       </View>
       <View style={styles.content}>
         <View style={styles.form}>
-          <Text style={styles.subtitle}>Log In</Text>
+          <Text style={styles.subtitle}>Sign Up</Text>
           <View style={styles.input}>
             <TextInput 
                   placeholder='Enter Username'
                   placeholderTextColor={"#fff"}
-                  value={username}
-                  onChangeText={setUserName}
+                  value={email}
+                  onChangeText={setEmail}
                   style={styles.textInput} />
             <TextInput 
                   placeholder='Enter Password'
@@ -30,7 +49,7 @@ export default function login() {
                   value={password}
                   onChangeText={setPassword}
                   style={styles.textInput} />
-            <Button name="Login" onPress={logIn} style={styles.button}/>
+            <Button name="Sign Up" onPress={signUpWithEmail} style={styles.button}/>
           </View>
         </View>
       </View>

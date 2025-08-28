@@ -1,14 +1,31 @@
 import Button from '@/components/Button';
 import { useAuthStore } from '@/utils/authStore';
+import { supabase } from '@/utils/supabase';
+import { Link } from 'expo-router';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
 
 export default function login() {
   const {logIn} = useAuthStore();
-  const [username,setUserName] = useState<string>("");
-  const [password,setPassword] = useState<string>("");
+  const [email,setEmail] = useState("");
+  const [password,setPassword] = useState("");
+  const [loading,setLoading] = useState(false);
+
+  async function signInWithEmail() {
+    setLoading(true)
+    const { error, data:{session} } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password,
+    })
+    if(session){
+      logIn();
+    }
+    if (error) Alert.alert(error.message)
+    setLoading(false)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -21,8 +38,8 @@ export default function login() {
             <TextInput 
                   placeholder='Enter Username'
                   placeholderTextColor={"#fff"}
-                  value={username}
-                  onChangeText={setUserName}
+                  value={email}
+                  onChangeText={setEmail}
                   style={styles.textInput} />
             <TextInput 
                   placeholder='Enter Password'
@@ -30,7 +47,13 @@ export default function login() {
                   value={password}
                   onChangeText={setPassword}
                   style={styles.textInput} />
-            <Button name="Login" onPress={logIn} style={styles.button}/>
+            <Button name="Login" onPress={signInWithEmail} style={styles.button}/>
+            <View style={styles.content}>
+              <Text style={styles.h3}>New to THEETA? 
+              <Link href="/create_account" style={styles.h3}>create account</Link>
+              </Text>
+            </View>
+            
           </View>
         </View>
       </View>
@@ -87,6 +110,10 @@ const styles = StyleSheet.create({
   subtitle: {
     color: 'rgb(219, 157, 98)',
     fontSize: 32,
+  },
+  h3: {
+    color: 'rgb(219, 157, 98)',
+    fontSize: 15,
   },
   ex_container: {
     bottom:0,

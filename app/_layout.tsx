@@ -1,6 +1,5 @@
 import { useAuthStore } from "@/utils/authStore";
 import { Stack } from "expo-router";
-import { useContext } from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
@@ -13,6 +12,7 @@ export default function RootLayout() {
             </Stack.Protected>
             <Stack.Protected guard={!isLoggedIn}>
               <Stack.Screen name="login" options={{headerShown: false}} />
+              <Stack.Screen name="create_account" options={{headerShown: false}} />
             </Stack.Protected>
           </Stack>
       </GestureHandlerRootView>
