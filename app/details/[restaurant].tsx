@@ -1,9 +1,9 @@
 import IconButton from "@/components/IconButton";
-
 import Rating from "@/components/Rating";
 import * as ImagePicker from 'expo-image-picker';
+import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
-import { ImageBackground, StyleSheet, Text, TextInput, View } from "react-native";
+import { ImageBackground, StyleSheet, TextInput, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 
@@ -31,9 +31,11 @@ const data = [
   { key: 'Coastal Cravings', img: image3 },
 ];
 
-export default function Review() {
+export default function Restraunt() {
 
   const [image,setImage] = useState<string |undefined>(undefined);
+  const {restaurant} = useLocalSearchParams();
+  
 
   const pickImageAsync = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -55,31 +57,37 @@ export default function Review() {
   const [query,setQuery] = useState('');
   return (
     <View style={styles.container}>
-        <View style={styles.header}>
-            <Text style={styles.header_title}>Add a Review</Text>
-            <ScrollView style={styles.form}>
-                <View style={styles.image_conatiner}>
-                    <ImageBackground source={image? {uri: image}:image1} imageStyle={styles.image}>
-                        <View style={styles.title_container}>
-                            <IconButton name='add-circle-outline' color='rgb(95, 95, 95)' style={styles.button} onPress={pickImageAsync} />
-                        </View>
-                    </ImageBackground>
-                </View>
-                <View style={styles.rating}>
-                  <Rating label="Food"/>
-                  <Rating label="Service"/>
-                  <Rating label="Ambience"/>
-                </View>
-                <View style={styles.text_container}>
-                  <TextInput 
-                    placeholder='Add a review'
-                    placeholderTextColor={"#fff"}
-                    value={query}
-                    onChangeText={setQuery}
-                    style={styles.input} />
-                </View>
-            </ScrollView>
+<Stack.Screen
+        options={{
+          title: `${restaurant}`,
+          headerStyle:{backgroundColor:"rgb(22, 13, 0)"},
+          headerTitleStyle:{
+            color:'rgb(190, 109, 2)',
+            fontSize:24}
+        }}      
+      />
+      <ScrollView style={styles.form}>
+        <View style={styles.image_conatiner}>
+          <ImageBackground source={image? {uri: image}:image1} imageStyle={styles.image}>
+              <View style={styles.title_container}>
+                  <IconButton name='add-circle-outline' color='rgb(95, 95, 95)' style={styles.button} onPress={pickImageAsync} />
+              </View>
+          </ImageBackground>
         </View>
+        <View style={styles.rating}>
+          <Rating label="Food"/>
+          <Rating label="Service"/>
+          <Rating label="Ambience"/>
+        </View>
+        <View style={styles.text_container}>
+          <TextInput 
+            placeholder='Add a review'
+            placeholderTextColor={"#fff"}
+            value={query}
+            onChangeText={setQuery}
+            style={styles.input} />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -89,11 +97,6 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:'rgb(22, 13, 0)',
     paddingBottom: 20,
-  },
-  header: {
-    paddingTop: 60,
-    backgroundColor:'rgb(41, 26, 4)',
-    borderRadius:20,
   },
   header_title: {
     color: 'rgb(190, 109, 2)',
@@ -128,20 +131,18 @@ const styles = StyleSheet.create({
   },
   image_conatiner: {
     height:250,
+    width:350,
     borderRadius:20,
   },
   image: {
     height:250,
     width:350,
     borderRadius:20,
-  },
-  title_container: {
+},
+title_container: {
     height:'100%',
     alignItems:'center',
     justifyContent:'center',
-    width:350,
-    borderRadius:20,
-    backgroundColor:'rgba(0,0,0,0.3)'
   },
   button: {
     height:250,

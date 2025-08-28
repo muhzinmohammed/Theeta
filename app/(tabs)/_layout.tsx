@@ -24,9 +24,6 @@ export default function TabLayout(){
             <Tabs.Screen name="map" options={{title: "Map",tabBarIcon: ({color,focused}) => (
                 <Ionicons name={focused? 'location':'location-outline'} color={color} size={24} />
             )}} />
-            <Tabs.Screen name="profile" options={{title: "Profile",tabBarIcon: ({color,focused}) => (
-                <Ionicons name={focused? 'person':'person-outline'} color={color} size={24} />
-            )}} />
         </Tabs>
     )
 }

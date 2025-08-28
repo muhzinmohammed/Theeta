@@ -1,5 +1,6 @@
 import Card from "@/components/Card";
 import Top from "@/components/Top";
+import { Link } from "expo-router";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -39,6 +40,9 @@ export default function Index() {
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.logo}>Theeta</Text>
+            <View style={styles.profile}>
+              <Link href={{ pathname: "/user/[user]", params: { user: "muhzin" } }}></Link>
+            </View>
             <Text style={styles.title}>Welcome, Muhzin</Text>
             <View style={styles.ex_container}>
               <Text style={styles.subtitle}>New In Town</Text>
@@ -101,5 +105,14 @@ const styles = StyleSheet.create({
     backgroundColor:'rgb(22, 13, 0)',
     borderTopLeftRadius:0,
     borderRadius:20
-  }
+  },
+  profile:{
+    top:60,
+    right:20,
+    position:"absolute",
+    height:40,
+    width:40,
+    backgroundColor:'rgb(200,200,200)',
+    borderRadius:"50%"
+  },
 });

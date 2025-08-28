@@ -5,13 +5,13 @@ import React from 'react';
 import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
-    name: String;
+    name: string;
     imgSource: ImageSourcePropType;
 }
 export default function Card({name,imgSource}:Props) {
   return (
     <View style={styles.container}>
-        <Link href="/">
+        <Link href={{ pathname: "/details/[restaurant]", params: { restaurant: name } }}>
             <View style={styles.image_conatiner}>
                 <ImageBackground source={imgSource} imageStyle={styles.image}>
                     <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}

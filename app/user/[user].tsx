@@ -1,5 +1,6 @@
 import Button from '@/components/Button';
 import { useAuthStore } from '@/utils/authStore';
+import { Stack, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 
@@ -8,8 +9,18 @@ const image2 = require('@/assets/images/food2.jpg');
 
 export default function profile() {
   const {logOut} = useAuthStore();
+  const {user} = useLocalSearchParams(); 
   return (
     <View style={styles.conatiner}>
+        <Stack.Screen
+        options={{
+          title: `${user}`,
+          headerStyle:{backgroundColor:"rgb(22, 13, 0)"},
+          headerTitleStyle:{
+            color:'rgb(190, 109, 2)',
+            fontSize:24}
+        }}      
+      />
       <Text style={styles.subtitle}>profile</Text>
       <Image source={image2} style={styles.image} />
       <Button name="LogOut" style={styles.button} onPress={logOut}/>
