@@ -1,7 +1,11 @@
+import Avatar from "@/components/avatar";
 import Card from "@/components/Card";
 import Top from "@/components/Top";
+import { useAuthStore } from "@/utils/authStore";
+import { supabase } from "@/utils/supabase";
 import { Link } from "expo-router";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
 const image1 = require('@/assets/images/food1.jpg');
@@ -29,6 +33,49 @@ const data = [
 ];
 
 export default function Index() {
+
+  const [loading, setLoading] = useState(true)
+  const [username, setUsername] = useState('')
+  const [avatarUrl, setAvatarUrl] = useState('')
+  const session = useAuthStore((state) => state.session);
+
+  useEffect(() => {
+    if (session) {
+        getProfile()
+    } else{
+        console.log("no session");
+    }
+  }, [session])
+
+  async function getProfile() {
+    try {
+      setLoading(true)
+      if (!session?.user) throw new Error('No user on the session!')
+
+      const { data, error, status } = await supabase
+        .from('profiles')
+        .select(`username,avatar_url`)
+        .eq('id', session?.user.id)
+        .single()
+      if (error && status !== 406) {
+        console.log("no data")
+        throw error
+      }
+
+      if (data) {
+        console.log(data)
+        setUsername(data.username)
+        setAvatarUrl(data.avatar_url)
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        Alert.alert(error.message)
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -41,7 +88,16 @@ export default function Index() {
           <View style={styles.header}>
             <Text style={styles.logo}>Theeta</Text>
             <View style={styles.profile}>
-              <Link href={{ pathname: "/user/[user]", params: { user: "muhzin" } }}></Link>
+              <Link href={{ pathname: "/user/[user]", params: { user: "muhzin" } }}>
+                {avatarUrl ? (
+                  <Avatar
+                      size={40}
+                      url={avatarUrl}
+                  />
+                ) : (
+                  <View style={[{height:40,width:40}, styles.avatar, styles.noImage]} />
+                )}
+              </Link>
             </View>
             <Text style={styles.title}>Welcome, Muhzin</Text>
             <View style={styles.ex_container}>
@@ -114,5 +170,21 @@ const styles = StyleSheet.create({
     width:40,
     backgroundColor:'rgb(200,200,200)',
     borderRadius:"50%"
+  },
+  avatar: {
+    borderRadius: "50%",
+    overflow: 'hidden',
+    maxWidth: '100%',
+  },
+  image: {
+    objectFit: 'cover',
+    paddingTop: 0,
+  },
+  noImage: {
+    backgroundColor: '#333',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: 'rgb(200, 200, 200)',
+    borderRadius: 5,
   },
 });

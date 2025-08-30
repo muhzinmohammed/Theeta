@@ -1,9 +1,9 @@
-import { Pressable, StyleSheet, View ,Text} from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
   style: any;
   name: any;
-  onPress: () => void;
+  onPress?: () => void;
 };
 
 export default function Button({ onPress,style,name}: Props) {
