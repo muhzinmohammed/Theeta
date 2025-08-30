@@ -2,43 +2,51 @@ import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Link } from 'expo-router';
 import React from 'react';
-import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     name: string;
-    imgSource: ImageSourcePropType;
+    imgSource?: string;
+    rating?:number;
+    wait?:number;
+    price?:number;
+    cusines: string[];
+    veg:boolean;
 }
-export default function Card({name,imgSource}:Props) {
+export default function Card({name,imgSource,rating, wait,price,cusines,veg}:Props) {
   return (
     <View style={styles.container}>
         <Link href={{ pathname: "/details/[restaurant]", params: { restaurant: name } }}>
             <View style={styles.image_conatiner}>
-                <ImageBackground source={imgSource} imageStyle={styles.image}>
-                    <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
+                <ImageBackground source={{uri: imgSource}} imageStyle={styles.image}>
+                    <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0, 0, 0, 0)']}
                         start={{ x: 0, y: 0 }}
                         end={{ x: 0, y: 1 }}
                         style={styles.overlay}>
-                        <Text style={styles.text}>{name}</Text>
+                        <View style={{flexDirection:"row",justifyContent:"space-between"}}>
+                            <Text style={styles.text}>{name}</Text>
+                            {veg? <View style={styles.veg}></View>:null}
+                        </View>
                     </LinearGradient>
                     <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0,0,0,0)']}
                         start={{ x: 0, y: 1 }}
                         end={{ x: 0, y: 0 }}
                         style={styles.bottomOverlay}>
-                        <Text style={styles.cusine}>Indian-Arabic-Chinese</Text>
+                        <Text style={styles.cusine}>{cusines.join(' - ')}</Text>
                     </LinearGradient>
                 </ImageBackground>
             </View>
             <View style={styles.details}>
                 <View style={styles.info}>
-                    <Text style={styles.text1}>5.0</Text>
+                    <Text style={styles.text1}>{rating}</Text>
                     <Ionicons name='star-outline' color={'#EEA734'} size={22}/>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.text1}>30 mins</Text>
+                    <Text style={styles.text1}>{wait} mins</Text>
                     <Ionicons name='time-outline' color={'#EEA734'} size={24}/>
                 </View>
                 <View style={styles.info}>
-                    <Text style={styles.text1}>200</Text>
+                    <Text style={styles.text1}>{price}</Text>
                     <Ionicons name='pricetags-outline' color={'#EEA734'} size={24}/>
                 </View>
             </View>
@@ -104,5 +112,13 @@ const styles = StyleSheet.create({
         color: 'rgb(231, 226, 226)',
         fontSize: 18,
         fontWeight: 'bold',
+    },
+    veg:{
+        backgroundColor:'rgb(25, 151, 0)',
+        top:10,
+        right:0,
+        height:15,
+        width:15,
+        borderRadius:"50%",
     }
 })

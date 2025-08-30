@@ -1,6 +1,7 @@
 import Avatar from "@/components/avatar";
 import Card from "@/components/Card";
 import Top from "@/components/Top";
+import useRestaurants from "@/hooks/useRestaurant";
 import { useAuthStore } from "@/utils/authStore";
 import { supabase } from "@/utils/supabase";
 import { Link } from "expo-router";
@@ -8,29 +9,7 @@ import { useEffect, useState } from "react";
 import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 
-const image1 = require('@/assets/images/food1.jpg');
-const image2 = require('@/assets/images/food2.jpg');
 const image3 = require('@/assets/images/food3.jpg');
-
-const data = [
-  { key: 'The Saffron Spoon', img: image1 },
-  { key: 'Urban Tandoor', img: image2 },
-  { key: 'Fork & Flame', img: image3 },
-  { key: 'Miso Hungry', img: image1 },
-  { key: 'The Olive Table', img: image1 },
-  { key: 'Spice Theory', img: image1 },
-  { key: 'Velvet Curry', img: image1 },
-  { key: 'Zesty Roots', img: image1 },
-  { key: 'Namma Feast', img: image2 },
-  { key: 'The Curry Leaf', img: image3 },
-  { key: 'Chili & Chaat', img: image1 },
-  { key: 'The Golden Grill', img: image2 },
-  { key: 'Biryani Junction', img: image1 },
-  { key: 'Tangy Tales', img: image3 },
-  { key: 'Savory Street', img: image2 },
-  { key: 'Tikka Town', img: image1 },
-  { key: 'Coastal Cravings', img: image3 },
-];
 
 export default function Index() {
 
@@ -41,65 +20,70 @@ export default function Index() {
 
   useEffect(() => {
     if (session) {
-        getProfile()
+      getProfile()
     } else{
-        console.log("no session");
+      console.log("no session");
     }
   }, [session])
-
+  
   async function getProfile() {
     try {
       setLoading(true)
       if (!session?.user) throw new Error('No user on the session!')
-
-      const { data, error, status } = await supabase
+        
+        const { data, error, status } = await supabase
         .from('profiles')
         .select(`username,avatar_url`)
         .eq('id', session?.user.id)
         .single()
-      if (error && status !== 406) {
-        console.log("no data")
-        throw error
+        if (error && status !== 406) {
+          console.log("no data")
+          throw error
+        }
+        
+        if (data) {
+          console.log(data)
+          setUsername(data.username)
+          setAvatarUrl(data.avatar_url)
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          Alert.alert(error.message)
+        }
+      } finally {
+        setLoading(false)
       }
-
-      if (data) {
-        console.log(data)
-        setUsername(data.username)
-        setAvatarUrl(data.avatar_url)
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        Alert.alert(error.message)
-      }
-    } finally {
-      setLoading(false)
     }
-  }
+    
+    const {restaurants} = useRestaurants()
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.key}
+        data={restaurants}
+        keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <Card name={item.key} imgSource={item.img} />
+          <Card 
+            name={item.name} 
+            imgSource={item.image_url} 
+            rating={item.rating} 
+            wait={item.waiting_time}
+            price={item.price_range}
+            cusines={item.cusines}
+            veg={item.veg} />
         )}
         ListHeaderComponent={
           <View style={styles.header}>
             <Text style={styles.logo}>Theeta</Text>
             <View style={styles.profile}>
               <Link href={{ pathname: "/user/[user]", params: { user: "muhzin" } }}>
-                {avatarUrl ? (
                   <Avatar
                       size={40}
                       url={avatarUrl}
                   />
-                ) : (
-                  <View style={[{height:40,width:40}, styles.avatar, styles.noImage]} />
-                )}
               </Link>
             </View>
-            <Text style={styles.title}>Welcome, Muhzin</Text>
+            <Text style={styles.title}>Welcome, {username}</Text>
             <View style={styles.ex_container}>
               <Text style={styles.subtitle}>New In Town</Text>
               <ScrollView horizontal >

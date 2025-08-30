@@ -2,6 +2,7 @@
 import Avatar from '@/components/avatar'
 import Button from '@/components/Button'
 import { useAuthStore } from '@/utils/authStore'
+import { Session } from '@supabase/supabase-js'
 import { useEffect, useState } from 'react'
 import { Alert, StyleSheet, View } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'

@@ -122,10 +122,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   noImage: {
-    backgroundColor: '#333',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'rgb(200, 200, 200)',
-    borderRadius: 5,
+    borderRadius: "50%",
+    backgroundColor: 'rgb(196, 194, 194)',
   },
 })
