@@ -1,15 +1,15 @@
 import React from 'react';
-import { ImageBackground, ImageSourcePropType, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     name: String;
-    imgSource: ImageSourcePropType;
+    imgSource?: string;
 }
 export default function Catagory({name,imgSource}:Props) {
   return (
     <View style={styles.container}>
         <View style={styles.image_conatiner}>
-            <ImageBackground source={imgSource} imageStyle={styles.image}>
+            <ImageBackground source={{uri:imgSource}} imageStyle={styles.image}>
                 <View style={styles.overlay}>
                     <Text style={styles.text}>{name}</Text>
                 </View>

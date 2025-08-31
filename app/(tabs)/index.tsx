@@ -13,7 +13,6 @@ const image3 = require('@/assets/images/food3.jpg');
 
 export default function Index() {
 
-  const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState('')
   const [avatarUrl, setAvatarUrl] = useState('')
   const session = useAuthStore((state) => state.session);
@@ -28,7 +27,6 @@ export default function Index() {
   
   async function getProfile() {
     try {
-      setLoading(true)
       if (!session?.user) throw new Error('No user on the session!')
         
         const { data, error, status } = await supabase
@@ -50,12 +48,10 @@ export default function Index() {
         if (error instanceof Error) {
           Alert.alert(error.message)
         }
-      } finally {
-        setLoading(false)
-      }
+      } 
     }
     
-    const {restaurants} = useRestaurants()
+  const {restaurants} = useRestaurants()
 
   return (
     <View style={styles.container}>
@@ -64,6 +60,7 @@ export default function Index() {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <Card 
+            id={item.id}
             name={item.name} 
             imgSource={item.image_url} 
             rating={item.rating} 
@@ -77,10 +74,7 @@ export default function Index() {
             <Text style={styles.logo}>Theeta</Text>
             <View style={styles.profile}>
               <Link href={{ pathname: "/user/[user]", params: { user: "muhzin" } }}>
-                  <Avatar
-                      size={40}
-                      url={avatarUrl}
-                  />
+                  <Avatar size={40} url={avatarUrl} />
               </Link>
             </View>
             <Text style={styles.title}>Welcome, {username}</Text>
@@ -98,7 +92,7 @@ export default function Index() {
             </View>
           </View>
         }
-        contentContainerStyle={styles.content}
+        contentContainerStyle={{paddingBottom: 20,}}
         showsVerticalScrollIndicator={false}
       />
     </View>
@@ -110,14 +104,9 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor:'rgb(22, 13, 0)',
   },
-  content: {
-    paddingBottom: 20,
-
-  },
   header: {
     paddingTop: 60,
     backgroundColor:'rgb(41, 26, 4)',
-    borderRadius:20,
   },
   logo: {
     color: 'rgb(190, 109, 2)',
@@ -154,21 +143,5 @@ const styles = StyleSheet.create({
     width:40,
     backgroundColor:'rgb(200,200,200)',
     borderRadius:"50%"
-  },
-  avatar: {
-    borderRadius: "50%",
-    overflow: 'hidden',
-    maxWidth: '100%',
-  },
-  image: {
-    objectFit: 'cover',
-    paddingTop: 0,
-  },
-  noImage: {
-    backgroundColor: '#333',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: 'rgb(200, 200, 200)',
-    borderRadius: 5,
-  },
+  }
 });

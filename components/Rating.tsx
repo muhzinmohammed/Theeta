@@ -5,17 +5,25 @@ import { StyleSheet, Text, View } from 'react-native';
 
 type Props = {
     label: string;
+    rating:number;
 }
-export default function Rating({label}:Props) {
+export default function Rating({label, rating}:Props) {
+    const stars = [];
+    {for(let i=1;i<=5;i++){
+        if(i<=rating){
+            stars.push(<Ionicons key={i} name="star" color={'rgb(190, 109, 2)'} size={20}/>);
+        } else{
+            stars.push(<Ionicons key={i} name="star-outline" color={'rgb(190, 109, 2)'} size={20}/>);
+        }
+    }}
   return (
     <View style={styles.rating}>
         <Text style={styles.subtitle}>{label}</Text>
-        <View style={{flexDirection:'row',gap:5}}>
-            <Ionicons name="star" color={'rgb(190, 109, 2)'} size={24}/>
-            <Ionicons name="star" color={'rgb(190, 109, 2)'} size={24}/>
-            <Ionicons name="star" color={'rgb(190, 109, 2)'} size={24}/>
-            <Ionicons name="star-outline" color={'rgb(190, 109, 2)'} size={24}/>
-            <Ionicons name="star-outline" color={'rgb(190, 109, 2)'} size={24}/>
+        <View style={{flexDirection:'row',gap:1, justifyContent:"center"}}>
+            {stars}
+            {/* <Ionicons name="star" color={'rgb(190, 109, 2)'} size={20}/>
+            <Ionicons name="star" color={'rgb(190, 109, 2)'} size={20}/>
+            <Ionicons name="star-outline" color={'rgb(190, 109, 2)'} size={20}/> */}
         </View>
     </View>
   )
@@ -24,13 +32,13 @@ export default function Rating({label}:Props) {
 const styles = StyleSheet.create({
     subtitle: {
         color: 'rgb(219, 157, 98)',
-        fontSize: 20,
-        marginBottom: 10,
-        width:100
+        fontSize: 15,
+        marginBottom: 2,
+        width:"100%",
+        textAlign:"center",
     },
     rating: {
-        flexDirection:'row',
-        margin:8,
-        gap:20
+        // flexDirection:'row',
+        marginBottom:10,
     },
 })

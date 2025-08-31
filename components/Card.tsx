@@ -5,6 +5,7 @@ import React from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 type Props = {
+    id:string;
     name: string;
     imgSource?: string;
     rating?:number;
@@ -13,10 +14,10 @@ type Props = {
     cusines: string[];
     veg:boolean;
 }
-export default function Card({name,imgSource,rating, wait,price,cusines,veg}:Props) {
+export default function Card({id,name,imgSource,rating, wait,price,cusines,veg}:Props) {
   return (
     <View style={styles.container}>
-        <Link href={{ pathname: "/details/[restaurant]", params: { restaurant: name } }}>
+        <Link href={{ pathname: "/restaurant/[id]", params: { id: id } }}>
             <View style={styles.image_conatiner}>
                 <ImageBackground source={{uri: imgSource}} imageStyle={styles.image}>
                     <LinearGradient colors={['rgba(0,0,0,0.8)', 'rgba(0, 0, 0, 0)']}
@@ -32,14 +33,14 @@ export default function Card({name,imgSource,rating, wait,price,cusines,veg}:Pro
                         start={{ x: 0, y: 1 }}
                         end={{ x: 0, y: 0 }}
                         style={styles.bottomOverlay}>
-                        <Text style={styles.cusine}>{cusines.join(' - ')}</Text>
+                        {/* <Text style={styles.cusine}>{cusines.join(' - ')}</Text> */}
                     </LinearGradient>
                 </ImageBackground>
             </View>
             <View style={styles.details}>
                 <View style={styles.info}>
                     <Text style={styles.text1}>{rating}</Text>
-                    <Ionicons name='star-outline' color={'#EEA734'} size={22}/>
+                    <Ionicons name='star' color={'#EEA734'} size={22}/>
                 </View>
                 <View style={styles.info}>
                     <Text style={styles.text1}>{wait} mins</Text>
