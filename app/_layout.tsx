@@ -30,6 +30,7 @@ export default function RootLayout() {
             <Stack.Protected guard={isLoggedIn}>
               <Stack.Screen name="(tabs)" options={{headerShown: false}} />
               <Stack.Screen name="restaurant/[id]" options={{headerShown:false}} />
+              <Stack.Screen name="food/[id]" options={{headerShown:false}} />
               <Stack.Screen name="user/[user]" options={{
                 headerBackButtonDisplayMode: "minimal",
                 headerTintColor:'rgb(190, 109, 2)',

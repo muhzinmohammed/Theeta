@@ -84,14 +84,13 @@ export default function Restraunt() {
   
   const fetchFoods = async () => {
     const { data, error } = await supabase
-      .from('food')
+      .from('Foods')
       .select('*')
       .eq('rest_id', id);
 
     if (error) {
       Alert.alert('Error fetching restaurants', error.message);
     } else if (data) {
-      console.log(data)
       setFoods(data);
     }
   };
@@ -148,8 +147,13 @@ export default function Restraunt() {
         />
         </View>
         <View style={[styles.container2,{width:"25%"}]}>
-
           <Link href={{ pathname: "/review/[id]", params: { id: restaurant? restaurant.id:1}}} style={[styles.text,{ transform: [{ rotate: "90deg" }],width:100,marginTop:25,textAlign:"center"}]}>Reviews</Link>
+        </View>
+        <View style={[styles.container2,{width:"60%"}]}>
+          <Text style={styles.text2} >Reserve your table at {restaurant?.name}</Text>
+        </View>
+        <View style={[styles.container2,{width:"35%",justifyContent:"center",alignItems:"center"}]}>
+          <Ionicons name="call-outline" color="rgb(252, 225, 151)" size={24}/>
         </View>
         <View >
           <Text style={[styles.text,{marginLeft:10}]}>Menu</Text>
@@ -206,6 +210,12 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       paddingTop:40,
+  },
+  text2: {
+      color: 'rgb(231, 226, 226)',
+      fontSize: 17,
+      fontWeight: 'bold',
+      // paddingTop:40,
   },
   subtext: {
       color: 'rgb(231, 226, 226)',

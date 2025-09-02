@@ -21,7 +21,7 @@ type Props = {
 export default function Food({id,name,image_url,rating, cooking_time,price,cusine,veg,description}:Props) {
   return (
     <View style={styles.container}>
-        <Link href={"/"}>
+        <Link href={{ pathname: "/food/[id]", params: { id: id } }}>
             <View style={[styles.container1,{width:"50%"}]}>
                 <ImageBackground source={{uri: image_url}} imageStyle={styles.image}>
                 </ImageBackground>
